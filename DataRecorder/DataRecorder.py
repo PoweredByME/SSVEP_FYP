@@ -22,6 +22,13 @@ class DataReader_Offline(object):
     """
         This class reads all the dataset files with in the
         set dataset folder.
+
+        Change the code in this class to cater for the different datasets.
+
+        Note: 
+            The class must have the function getSample which returns a tuple
+            containing index of the sample, samples in form of array of all the channels,
+            target frequency and total length of the dataset.
     """
     def __init__(self):
         self._dataPath = Globals.OFFLINE_DATA_PATH;
@@ -47,11 +54,11 @@ class DataReader_Offline(object):
                 if i < data["trial"][0][0]:
                     targetFreq = 0.0;
                 else:
-                    idx = self._largest_within_delta(data["trial"][0], i, 100000);
+                    idx = self._largest_within_delta(data["trial"][0], i, 100000000);
                     targetFreq = data["Y"][0][idx];
                 yield (i,sample, targetFreq, len(data["X"]));
-        yield (None, None, None);
-    
+        yield (None,None, None, None);
+############################################################################################
 
 class DataReader_Online(object):
     '''
@@ -60,7 +67,7 @@ class DataReader_Online(object):
     '''
     def __init__(self):
         pass;
-
+############################################################################################
 
 
 class DataRecorder(object):
@@ -122,3 +129,4 @@ class DataRecorder(object):
             self._dataReader = DataReader_Online();
 
         self._readDataThreadHandle = self._readData();
+############################################################################################
