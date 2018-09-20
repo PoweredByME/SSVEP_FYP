@@ -47,6 +47,9 @@ class DataReader_Offline(object):
             return None
 
     def getSample(self):
+        '''
+            This function yields samples of the EEG data.
+        '''
         for file in self._dataSetFilesList:
             data = self._openFile(file);
             for i in range(len(data["X"])):
