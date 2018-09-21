@@ -1,12 +1,17 @@
 from DataRecorder.DataRecorder import DataRecorder;
+import Preprocessor.Preprocessor as Preprocessor;
 import numpy as np;
+import matplotlib.pyplot as plt;
 
+
+pp = Preprocessor.Preprocessor();
 
 def onReceive_DataFrame(dataFrame):
+    global pp;
     '''
         This function is called when ever a data frame is received.
     '''
-    pass;
+    pp.Process(dataFrame);
 
 
 def main():
@@ -19,9 +24,9 @@ def main():
             The properties of a data frame include:
             - Size is always equal to that defined in by Globals.DATA_MAX_BUFFER_TIME_SEC
         '''
-        if d is not None:
+        if dataFrame is not None:
             onReceive_DataFrame(dataFrame);
-        if dr.endOfData();
+        if dr.endOfData():
             return;
 
 

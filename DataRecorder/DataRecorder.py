@@ -37,6 +37,8 @@ class DataReader_Offline(object):
 
     def _openFile(self, filePath):
         x = loadmat(filePath)
+        if Globals.SHOW_DATA_WHEN_FILE_OPENED:
+            Utils.Print(str(x));
         return x;
 
     def _largest_within_delta(self,X, k, delta):
@@ -46,10 +48,9 @@ class DataReader_Offline(object):
         else:
             return None
 
-    def getSample(self):
-        '''
-            This function yields samples of the EEG data.
-        '''
+    
+    '''def getSample(self):
+        #    This function yields samples of the EEG data.
         for file in self._dataSetFilesList:
             data = self._openFile(file);
             for i in range(len(data["X"])):
@@ -60,8 +61,19 @@ class DataReader_Offline(object):
                     idx = self._largest_within_delta(data["trial"][0], i, 100000000);
                     targetFreq = data["Y"][0][idx];
                 yield (i,sample, targetFreq, len(data["X"]));
+        yield (None,None, None, None);'''
+
+    def getSample(self):
+        #   This function yields samples of the EEG data.
+        for file in self._dataSetFilesList:
+            data = self._openFile(file);
+            for i in range(len(data["Data"][0][0][0])):
+                sample = data["Data"][0][0][0][i];
+                targetFreq = 0.0;
+                yield (i,sample, targetFreq, len(data["Data"][0][0][0]));
         yield (None,None, None, None);
 ############################################################################################
+
 
 class DataReader_Online(object):
     '''
@@ -104,16 +116,20 @@ class DataRecorder(object):
     def getData(self):
         if self._isDataBufferFull():
             (count, sample, targetFreq, totalSamples) = self._DATA_BUFFER[0];
-            buffer = np.zeros((self._DATA_MAX_SAMPLES,3 + len(sample)));
+            buffer = np.zeros((self._DATA_MAX_SAMPLES - 1, 3 + len(sample)));
             counter = 0;
             for samples in self._DATA_BUFFER:
                 (count, sample, targetFreq, totalSamples) = samples;
                 for i in range(len(sample)):
                     buffer[counter][i] = sample[i-1];
                 offset_index = len(sample);
+                ###################################################################################
+                ##   UPDATE THE Global.DATA_FRAME_APPENDAGE VARIABLE IF MORE COLUMNS ARE ADDED.  ##
+                ###################################################################################
                 buffer[counter][offset_index + 0] = targetFreq;
                 buffer[counter][offset_index + 1] = count;
                 buffer[counter][offset_index + 2] = totalSamples;
+                #################################################################################
                 counter += 1;
             self._emptyBuffer();
             return np.asmatrix(buffer);

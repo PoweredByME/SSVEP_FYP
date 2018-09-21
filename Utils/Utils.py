@@ -1,4 +1,5 @@
 import threading;
+import Utils.EEG.EEG.eeg as eeg;
 
 # creating a decorator for threading a function.
 def thread(func):
@@ -11,3 +12,5 @@ def thread(func):
 def Print(stringToPrint):
     print(stringToPrint);
 
+def computeFFT(data, fs):
+    return eeg.computeFFT(data, fs);
