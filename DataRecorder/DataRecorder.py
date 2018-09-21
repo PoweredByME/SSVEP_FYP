@@ -49,7 +49,7 @@ class DataReader_Offline(object):
             return None
 
     
-    '''def getSample(self):
+    def getSample(self):
         #    This function yields samples of the EEG data.
         for file in self._dataSetFilesList:
             data = self._openFile(file);
@@ -61,9 +61,9 @@ class DataReader_Offline(object):
                     idx = self._largest_within_delta(data["trial"][0], i, 100000000);
                     targetFreq = data["Y"][0][idx];
                 yield (i,sample, targetFreq, len(data["X"]));
-        yield (None,None, None, None);'''
+        yield (None,None, None, None);
 
-    def getSample(self):
+    '''def getSample(self):
         #   This function yields samples of the EEG data.
         for file in self._dataSetFilesList:
             data = self._openFile(file);
@@ -71,7 +71,7 @@ class DataReader_Offline(object):
                 sample = data["Data"][0][0][0][i];
                 targetFreq = 0.0;
                 yield (i,sample, targetFreq, len(data["Data"][0][0][0]));
-        yield (None,None, None, None);
+        yield (None,None, None, None);'''
 ############################################################################################
 
 

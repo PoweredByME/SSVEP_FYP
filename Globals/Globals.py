@@ -7,7 +7,7 @@
 """
 
 DATA_SOURCE = "offline";            # can be either "offline" or "online".
-DATA_SAMPLING_FREQ = 512.0;         # the sampling rate of the recorded EEG.
+DATA_SAMPLING_FREQ = 256.0;         # the sampling rate of the recorded EEG.
 DATA_MAX_BUFFER_TIME_SEC = 1;     # The time in seconds for which the data is stored in the buffer.
 
 SHOW_DATA_WHEN_FILE_OPENED = False  # print the data file when it is opened. Use this for debugging.
