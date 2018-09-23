@@ -1,0 +1,38 @@
+This is the implementation to make a SSVEP based User Interface.
+It is my Final Year Project at NUST-SEECS. People involved in this project
+are:
+
+- Saad Ahmad (This is my repository)
+- Uzain Bin Amjad
+- Hassan Ali
+
+This code only supports python3.7. 
+
+The notable dependencies include:
+- dlib (pip install dlib)
+- opencv (pip install opencv-python);
+- pylab (pip install pylab)
+- scipy (pip install scipy)
+- sklearn (pip install sklearn)
+- cython (pip install cython)
+
+The entry point of the code in main.py.
+
+Currently, the code has three thread:
+
+- main thread
+- data recoder thread
+- eye tracker thread
+
+The pipeline of the code is:
+
+- Record the Data
+- Preprocess the Data
+- Process the Data 
+- Infer from the data
+- Infer from the eye position on the screen
+- Perform action
+
+Other parts include
+
+- Online and Offline testing and training of the system.
