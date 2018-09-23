@@ -1,11 +1,12 @@
+import os;
+os.system("python cythonizer.py build_ext --inplace");
+
 import camera, display, utils;
 import faceLandmarkDetector, eyeTracker;
 import cv2;
 import numpy as np;
-import os;
-from Utils import Utils;
+#from Utils import Utils;
 
-os.system("python cythonizer.py build_ext --inplace");
 
 def myFrameFunction(cam, disp, fld, et, eb):
     ''' 
@@ -14,7 +15,8 @@ def myFrameFunction(cam, disp, fld, et, eb):
     '''
     ret, frame = cam.getVideoFrame();
     if not ret:
-        Utils.Print("No frame available. Ending video stream");
+        pass;
+        #Utils.Print("No frame available. Ending video stream");
 
     fld.setFrame(frame);
     fldList = fld.detect();
@@ -34,7 +36,8 @@ def myFrameFunction(cam, disp, fld, et, eb):
 
 
 def onEyeBlink():
-    Utils.Print("Eye blinked");
+    pass;
+    #Utils.Print("Eye blinked");
 
 
 
@@ -59,5 +62,4 @@ def main():
 
 
 if __name__  == "__main__":
-    
     main();

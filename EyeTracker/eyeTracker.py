@@ -74,7 +74,7 @@ class eyeTracker(object):
         olRatio, outLeft = utils.frameResize(outLeft, 30);
         orRatio, outRight = utils.frameResize(outRight, 30);
         
-        cv2.imshow("ccc", outLeft);
+        #cv2.imshow("ccc", outLeft);
         (clx,cly) = self._trackEyePupil(outLeft, olRatio);
         (crx,cry) = self._trackEyePupil(outRight, orRatio);
         
