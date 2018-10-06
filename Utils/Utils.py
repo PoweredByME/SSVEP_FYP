@@ -14,3 +14,18 @@ def Print(stringToPrint):
 
 def computeFFT(data, fs):
     return eeg.computeFFT(data, fs);
+
+def fftHighPassFilter(fft, freqs, cutOff):
+    fft[(freqs < cutOff)] = 0.0;
+    return  fft;
+
+def fftLowPassFilter(fft, freqs, cutOff):
+    fft[(freqs > cutOff)] = 0.0;
+    return fft;
+
+def fftBandStopFilter(fft, freqs, cutOff_lo, cutOff_hi):
+    return fftLowPassFilter(fft.copy(), freqs, cutOff_lo) + fftHighPassFilter(fft.copy(), freqs, cutOff_hi);
+
+def fftBandPassFilter(fft, freqs, cutOff_lo, cutOff_hi):
+    fft = fftLowPassFilter(fft.copy(), freqs, cutOff_hi);
+    return fftHightPassFilter(fft, freqs, cutOff_lo);

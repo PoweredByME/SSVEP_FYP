@@ -67,6 +67,7 @@ class DataReader_Offline(object):
         #   This function yields samples of the EEG data.
         for file in self._dataSetFilesList:
             data = self._openFile(file);
+            print(data);
             for i in range(len(data["Data"][0][0][0])):
                 sample = data["Data"][0][0][0][i];
                 targetFreq = 0.0;

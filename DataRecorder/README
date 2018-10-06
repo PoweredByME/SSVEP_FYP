@@ -1,0 +1,11 @@
+The data protocol of the pipeline is as follows.
+
+-   The data frame consists of array of samples. The data is represented in form
+    of a matrix. Where the rows contain the samples and column contain the required
+    data field.
+
+-  The data frame sample is made up of the following method
+
+    [ | EEG0 | EEG1 | EEG2 | ... | EEGn | target_frequency | sample_count | total_samples | ]
+
+    Note : This dataframe sample structure must be updated is any changes are made.

@@ -1,20 +1,30 @@
 from DataRecorder.DataRecorder import DataRecorder;
 import Preprocessor.Preprocessor as Preprocessor;
+import SSVEPDetector.SSVEPDetector as SSVEPDetector;
 import numpy as np;
 import matplotlib.pyplot as plt;
 
 
 pp = Preprocessor.Preprocessor();
+sd = SSVEPDetector.SSVEPDetector();
+DOT = [];
+SSVEP = [];
+COEFF = [];
 
 def onReceive_DataFrame(dataFrame):
-    global pp;
+    global pp,sd, DOT, SSVEP, COEFF;
     '''
         This function is called when ever a data frame is received.
     '''
-    pp.Process(dataFrame);
+    preprocessed_dataFrame = pp.Process(dataFrame);
+    (dot, ssvep, coeff) = sd.SOB(preprocessed_dataFrame);
+    DOT.append(dot);
+    SSVEP.append(ssvep);
+    COEFF.append(coeff);
 
 
 def main():
+    global COEFF, SSVEP, DOT;
     dr = DataRecorder();
     while True:
         dataFrame = dr.getData();
@@ -27,6 +37,20 @@ def main():
         if dataFrame is not None:
             onReceive_DataFrame(dataFrame);
         if dr.endOfData():
+            COEFF = np.asarray(COEFF);
+            SSVEP = np.asarray(SSVEP);
+
+            plt.subplot(311);
+            plt.plot(SSVEP);
+            plt.subplot(312);
+            c = COEFF.copy();
+            c[(SSVEP < 1)] = 0
+            plt.plot(c);
+            plt.subplot(313);
+            COEFF[(SSVEP > 1)] = 0;
+            plt.plot(COEFF);
+            plt.show();
+            
             return;
 
 
