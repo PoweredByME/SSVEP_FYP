@@ -9,7 +9,7 @@ class SSVEPDetector(object):
     '''
 
     def __init__(self):
-        self.ssvepFreqs = [15.0]; # list of all the freqs for which the system has to detect the SSVEP.
+        self.ssvepFreqs = [13.0]; # list of all the freqs for which the system has to detect the SSVEP.
         self.eegChannelforSOB = 3;
 
 
